@@ -1,11 +1,10 @@
 name: Nifty 9:15 Trading Bot
 
-on:
-  schedule:
-    # 09:10 AM IST = 03:40 UTC
-    - cron: '40 3 * * 1-5'
-
+"on":
   workflow_dispatch:
+
+  schedule:
+    - cron: '40 3 * * 1-5'
 
 jobs:
   trade:
@@ -33,5 +32,4 @@ jobs:
           ANGEL_TOTP_SECRET: ${{ secrets.ANGEL_TOTP_SECRET }}
           START_STRIKE: ${{ secrets.START_STRIKE }}
           INSTRUMENT_FILE: ${{ secrets.INSTRUMENT_FILE }}
-
         run: python nifty_916_atm_mylife.py
