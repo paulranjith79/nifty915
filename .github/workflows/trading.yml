@@ -1,1 +1,37 @@
+name: Nifty 9:15 Trading Bot
 
+on:
+  schedule:
+    # 09:10 AM IST = 03:40 UTC
+    - cron: '40 3 * * 1-5'
+
+  workflow_dispatch:
+
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Trading Bot
+        env:
+          ANGEL_API_KEY: ${{ secrets.ANGEL_API_KEY }}
+          ANGEL_CLIENT_CODE: ${{ secrets.ANGEL_CLIENT_CODE }}
+          ANGEL_PIN: ${{ secrets.ANGEL_PIN }}
+          ANGEL_TOTP_SECRET: ${{ secrets.ANGEL_TOTP_SECRET }}
+          START_STRIKE: ${{ secrets.START_STRIKE }}
+          INSTRUMENT_FILE: ${{ secrets.INSTRUMENT_FILE }}
+
+        run: python nifty_916_atm_mylife.py
