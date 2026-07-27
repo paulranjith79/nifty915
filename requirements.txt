@@ -1,0 +1,5 @@
+smartapi-python
+python-dotenv
+pyotp
+websocket-client
+requests
